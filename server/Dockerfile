@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp:latest-php8.4 AS base
+FROM dunglas/frankenphp:1-php8.4-bookworm AS base
 
 RUN install-php-extensions \
     pdo_pgsql \
