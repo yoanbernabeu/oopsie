@@ -22,13 +22,16 @@
 ## Quick Start
 
 ```bash
-git clone https://github.com/yoanbernabeu/oopsie.git
-cd oopsie
-cp .env.example .env
+# Download the compose file
+curl -O https://raw.githubusercontent.com/yoanbernabeu/oopsie/main/docker-compose.yml
+
+# Start all services
 docker compose up -d
 ```
 
 Then open http://localhost:3000 and follow the setup wizard.
+
+> Images are hosted on GitHub Container Registry: `ghcr.io/yoanbernabeu/oopsie-server` and `ghcr.io/yoanbernabeu/oopsie-dashboard`.
 
 ### Services
 

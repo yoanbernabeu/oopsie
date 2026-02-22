@@ -1,8 +1,6 @@
 services:
   server:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
+    image: ghcr.io/yoanbernabeu/oopsie-server:latest
     ports:
       - "8080:8080"
     environment:
@@ -13,7 +11,7 @@ services:
       JWT_PASSPHRASE: oopsie
       STORAGE_ADAPTER: local
       STORAGE_LOCAL_PATH: /data/attachments
-      OOPSIE_VERSION: 1.0.0
+      OOPSIE_VERSION: 0.1.0
       CORS_ALLOW_ORIGIN: '*'
     volumes:
       - attachments:/data/attachments
@@ -23,9 +21,7 @@ services:
     restart: unless-stopped
 
   dashboard:
-    build:
-      context: ./dashboard
-      dockerfile: Dockerfile
+    image: ghcr.io/yoanbernabeu/oopsie-dashboard:latest
     ports:
       - "3000:3000"
     environment:
