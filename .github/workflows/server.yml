@@ -35,11 +35,11 @@ jobs:
           extensions: pdo_pgsql, intl
           coverage: none
 
-      - name: Create .env
+      - name: Configure env for CI
         working-directory: server
         run: |
-          cp .env.test .env 2>/dev/null || echo "APP_ENV=test" > .env
-          echo "DATABASE_URL=postgresql://oopsie:secret@localhost:5432/oopsie_test" >> .env
+          sed -i 's|postgresql://oopsie:secret@postgres:5432/oopsie|postgresql://oopsie:secret@localhost:5432/oopsie_test|' .env
+          echo "APP_SECRET=ci-test-secret" >> .env
 
       - name: Install dependencies
         working-directory: server
