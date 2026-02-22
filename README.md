@@ -22,11 +22,7 @@
 ## Quick Start
 
 ```bash
-# Download the compose file
-curl -O https://raw.githubusercontent.com/yoanbernabeu/oopsie/main/compose.yml
-
-# Start all services
-docker compose up -d
+curl -fsSL https://raw.githubusercontent.com/yoanbernabeu/oopsie/main/compose.yml | docker compose -f - up -d
 ```
 
 Then open http://localhost:3000 and follow the setup wizard.
@@ -70,7 +66,7 @@ cd docs && npm install && npm run dev
 
 ## Documentation
 
-Visit [oopsie.yoandev.co](https://oopsie.yoandev.co) for full documentation.
+Visit [yoanbernabeu.github.io/oopsie](https://yoanbernabeu.github.io/oopsie/) for full documentation.
 
 ## Contributing
 

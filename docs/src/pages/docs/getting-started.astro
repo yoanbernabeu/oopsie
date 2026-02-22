@@ -10,12 +10,8 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
     <li><a href="https://docs.docker.com/get-docker/">Docker</a> and Docker Compose installed</li>
   </ul>
 
-  <h2>1. Clone the repository</h2>
-  <pre><code>git clone https://github.com/yoanbernabeu/oopsie.git
-cd oopsie</code></pre>
-
-  <h2>2. Start the services</h2>
-  <pre><code>docker compose up -d</code></pre>
+  <h2>1. Start with a single command</h2>
+  <pre><code>curl -fsSL https://raw.githubusercontent.com/yoanbernabeu/oopsie/main/compose.yml | docker compose -f - up -d</code></pre>
   <p>This starts three services:</p>
   <ul>
     <li><strong>Server</strong> (API) — <code>http://localhost:8080</code></li>
@@ -23,7 +19,7 @@ cd oopsie</code></pre>
     <li><strong>PostgreSQL</strong> — internal database</li>
   </ul>
 
-  <h2>3. Complete the setup wizard</h2>
+  <h2>2. Complete the setup wizard</h2>
   <p>Open <code>http://localhost:3000</code> in your browser. On first launch, you'll be guided through:</p>
   <ol>
     <li>Creating your admin account</li>
@@ -32,10 +28,10 @@ cd oopsie</code></pre>
     <li>Getting the SDK integration snippet</li>
   </ol>
 
-  <h2>4. Add the SDK to your app</h2>
+  <h2>3. Add the SDK to your app</h2>
   <p>Copy the snippet from the setup wizard and add it to your application. See the <a href="/oopsie/docs/sdk/installation">SDK Installation</a> guide for details.</p>
 
-  <h2>5. Submit a test report</h2>
+  <h2>4. Submit a test report</h2>
   <p>Click the floating "Report a bug" button in your app, fill in the form, and verify it appears in the dashboard.</p>
 
   <h2>Next steps</h2>
