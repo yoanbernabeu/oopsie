@@ -2,8 +2,9 @@ services:
   server:
     image: ghcr.io/yoanbernabeu/oopsie-server:latest
     ports:
-      - "8080:8080"
+      - "8080:80"
     environment:
+      SERVER_NAME: :80
       DATABASE_URL: postgresql://oopsie:secret@postgres:5432/oopsie?serverVersion=17
       APP_SECRET: change-me-in-production
       JWT_SECRET_KEY: '%kernel.project_dir%/config/jwt/private.pem'

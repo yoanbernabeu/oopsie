@@ -20,7 +20,7 @@ FROM base AS production
 
 ENV APP_ENV=prod
 ENV APP_DEBUG=0
-ENV SERVER_NAME=:8080
+ENV SERVER_NAME=:80
 
 COPY . /app
 COPY --from=deps /app/vendor /app/vendor
@@ -35,7 +35,7 @@ RUN mkdir -p config/jwt
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-EXPOSE 8080
+EXPOSE 80
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
