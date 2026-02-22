@@ -41,7 +41,7 @@ Then open http://localhost:3000 and follow the setup wizard.
 ## SDK Usage
 
 ```javascript
-import Oopsie from '@oopsie/sdk';
+import Oopsie from 'oopsie-sdk';
 
 Oopsie.init({
   serverUrl: 'https://oopsie.example.com',

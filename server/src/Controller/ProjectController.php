@@ -45,7 +45,7 @@ class ProjectController extends AbstractController
         }
 
         $npm = sprintf(
-            "import Oopsie from '@oopsie/sdk';\n\nOopsie.init({\n  serverUrl: '%s',\n  apiKey: '%s',\n});",
+            "import Oopsie from 'oopsie-sdk';\n\nOopsie.init({\n  serverUrl: '%s',\n  apiKey: '%s',\n});",
             '{{SERVER_URL}}',
             $project->getApiKey(),
         );
