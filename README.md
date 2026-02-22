@@ -23,7 +23,7 @@
 
 ```bash
 # Download the compose file
-curl -O https://raw.githubusercontent.com/yoanbernabeu/oopsie/main/docker-compose.yml
+curl -O https://raw.githubusercontent.com/yoanbernabeu/oopsie/main/compose.yml
 
 # Start all services
 docker compose up -d

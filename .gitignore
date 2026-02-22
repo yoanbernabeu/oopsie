@@ -30,7 +30,7 @@ dist/
 *.tsbuildinfo
 
 # Docker
-docker-compose.override.yml
+compose.override.yml
 
 # Misc
 *.log
