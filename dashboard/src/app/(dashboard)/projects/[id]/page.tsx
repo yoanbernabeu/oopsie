@@ -17,14 +17,8 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
   const [webhookUrl, setWebhookUrl] = useState('');
   const [retentionDays, setRetentionDays] = useState(90);
 
-  useEffect(() => {
-    if (project) {
-      setName(project.name);
-      setAllowedDomains(project.allowedDomains.join(', '));
-      setWebhookUrl(project.webhookUrl ?? '');
-      setRetentionDays(project.retentionDays);
-    }
-  }, [project]);
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- sync server data to local form state
+  useEffect(() => { if (project) { setName(project.name); setAllowedDomains(project.allowedDomains.join(', ')); setWebhookUrl(project.webhookUrl ?? ''); setRetentionDays(project.retentionDays); } }, [project]);
 
   if (isLoading) return <div className="flex items-center justify-center h-64 text-gray-400 text-sm">Loading...</div>;
   if (!project) return <div className="flex items-center justify-center h-64 text-gray-400 text-sm">Project not found.</div>;

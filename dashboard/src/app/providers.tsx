@@ -18,10 +18,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => {
-    setTokenState(getToken());
-    setReady(true);
-  }, []);
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- SSR-safe: read localStorage on mount
+  useEffect(() => { setTokenState(getToken()); setReady(true); }, []);
 
   const login = useCallback((newToken: string) => {
     storeToken(newToken);

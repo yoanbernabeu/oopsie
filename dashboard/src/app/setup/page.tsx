@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth';
 import api from '@/lib/api';
 import { Button } from '@/components/ui/button';
@@ -140,7 +141,7 @@ export default function SetupPage() {
                 </pre>
               </div>
               <Button asChild className="w-full h-10 bg-coral-500 hover:bg-coral-600 text-white font-medium">
-                <a href="/">Go to Dashboard</a>
+                <Link href="/">Go to Dashboard</Link>
               </Button>
             </div>
           )}

@@ -9,9 +9,11 @@ Thumbs.db
 *.swo
 
 # Environment files
-.env
 .env.local
 .env.*.local
+# Ignore .env everywhere except server/ (Symfony convention: .env is committed)
+/.env
+/dashboard/.env
 
 # PHP / Composer
 /server/vendor/
