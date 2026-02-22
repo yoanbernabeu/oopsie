@@ -1,0 +1,57 @@
+name: Server CI
+
+on:
+  push:
+    branches: [main]
+    paths: ['server/**']
+  pull_request:
+    paths: ['server/**']
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: oopsie_test
+          POSTGRES_USER: oopsie
+          POSTGRES_PASSWORD: secret
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_pgsql, intl
+          coverage: none
+
+      - name: Install dependencies
+        working-directory: server
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run tests
+        working-directory: server
+        env:
+          DATABASE_URL: postgresql://oopsie:secret@localhost:5432/oopsie_test
+        run: php bin/phpunit
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        working-directory: server
+        run: docker build -t oopsie/server:latest .

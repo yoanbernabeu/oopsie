@@ -1,0 +1,95 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+
+const widgetOptionsCode = `Oopsie.init({
+  serverUrl: '...',
+  apiKey: '...',
+  widget: {
+    enabled: true,             // true = floating widget, false = headless
+    position: 'bottom-right',  // bottom-right, bottom-left, top-right, top-left
+    color: '#FF5C39',          // Primary color
+    theme: 'light',            // light or dark
+    text: 'Report a bug',     // Button text
+    icon: true,                // Show bug icon
+  },
+});`;
+
+const userContextCode = `Oopsie.init({
+  // ...
+  user: {
+    id: 'user_123',
+    email: 'user@example.com',
+    name: 'John Doe',
+    plan: 'pro',
+  },
+});`;
+
+const customMetadataCode = `Oopsie.init({
+  // ...
+  metadata: {
+    appVersion: '2.1.0',
+    environment: 'production',
+  },
+});`;
+
+const sanitizationCode = `Oopsie.init({
+  // ...
+  sanitize: {
+    headers: ['X-Custom-Token'],
+    bodyKeys: ['creditCard', 'ssn'],
+  },
+});`;
+
+const labelsCode = `Oopsie.init({
+  // ...
+  labels: {
+    title: 'Signaler un bug',
+    messagePlaceholder: 'Décrivez le problème...',
+    submit: 'Envoyer',
+    cancel: 'Annuler',
+    consent: 'J\\'accepte d\\'envoyer mes données de navigation',
+  },
+});`;
+
+const bufferDurationCode = `Oopsie.init({
+  // ...
+  bufferDuration: 10 * 60 * 1000, // 10 minutes
+});`;
+---
+
+<DocsLayout title="SDK Configuration">
+  <p>The full configuration reference for <code>Oopsie.init()</code>.</p>
+
+  <h2>Required options</h2>
+  <table>
+    <thead><tr><th>Option</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>serverUrl</code></td><td>string</td><td>URL of your Oopsie server instance</td></tr>
+      <tr><td><code>apiKey</code></td><td>string</td><td>Project API key from the dashboard</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Widget options</h2>
+  <pre><code class="language-javascript" set:text={widgetOptionsCode} /></pre>
+
+  <h2>User context</h2>
+  <p>Inject user information that will be sent with each report:</p>
+  <pre><code class="language-javascript" set:text={userContextCode} /></pre>
+
+  <h2>Custom metadata</h2>
+  <pre><code class="language-javascript" set:text={customMetadataCode} /></pre>
+
+  <h2>Sanitization rules</h2>
+  <p>Extend the default sanitization to redact additional sensitive data:</p>
+  <pre><code class="language-javascript" set:text={sanitizationCode} /></pre>
+  <p>Default redacted headers: <code>Authorization</code>, <code>Cookie</code>, <code>Set-Cookie</code>, <code>X-API-Key</code>.</p>
+  <p>Default redacted body keys: <code>password</code>, <code>secret</code>, <code>token</code>, <code>access_token</code>, <code>refresh_token</code>, <code>creditCard</code>, <code>ssn</code>, and more.</p>
+
+  <h2>Labels (i18n)</h2>
+  <p>Override any UI label for localization:</p>
+  <pre><code class="language-javascript" set:text={labelsCode} /></pre>
+
+  <h2>Buffer duration</h2>
+  <p>Change the rolling buffer duration (default: 5 minutes):</p>
+  <pre><code class="language-javascript" set:text={bufferDurationCode} /></pre>
+</DocsLayout>

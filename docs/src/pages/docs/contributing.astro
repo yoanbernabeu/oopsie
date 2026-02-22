@@ -1,0 +1,46 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Contributing">
+  <p>We welcome contributions to Oopsie! Here's how to get started.</p>
+
+  <h2>Development setup</h2>
+  <ol>
+    <li>Fork and clone the repository</li>
+    <li>Start the development environment:
+      <pre><code>docker compose up -d</code></pre>
+    </li>
+    <li>The development override mounts your local files for hot-reloading</li>
+  </ol>
+
+  <h2>Project structure</h2>
+  <pre><code>/oopsie
+├── server/      → Symfony API (PHP)
+├── sdk/         → Vanilla JS/TS SDK
+├── dashboard/   → Next.js admin dashboard
+├── docs/        → Astro documentation site
+└── .github/     → GitHub Actions workflows</code></pre>
+
+  <h2>Running tests</h2>
+  <pre><code># Server
+cd server && php bin/phpunit
+
+# SDK
+cd sdk && npm test
+
+# Dashboard
+cd dashboard && npm test</code></pre>
+
+  <h2>Guidelines</h2>
+  <ul>
+    <li>All code, comments, and documentation must be in English</li>
+    <li>PHP files must include <code>declare(strict_types=1)</code></li>
+    <li>Follow existing code conventions and patterns</li>
+    <li>Write tests for new features</li>
+    <li>Keep PRs focused and small</li>
+  </ul>
+
+  <h2>License</h2>
+  <p>Oopsie is licensed under the <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPLv3</a>. By contributing, you agree that your contributions will be licensed under the same license.</p>
+</DocsLayout>

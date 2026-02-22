@@ -1,0 +1,51 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Server Configuration">
+  <p>The Oopsie server is configured via environment variables.</p>
+
+  <h2>Core settings</h2>
+  <table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>APP_ENV</code></td><td><code>prod</code></td><td>Symfony environment</td></tr>
+      <tr><td><code>APP_SECRET</code></td><td>—</td><td>Application secret (change in production)</td></tr>
+      <tr><td><code>DATABASE_URL</code></td><td>—</td><td>PostgreSQL connection string</td></tr>
+    </tbody>
+  </table>
+
+  <h2>JWT authentication</h2>
+  <table>
+    <thead><tr><th>Variable</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>JWT_SECRET_KEY</code></td><td>Path to private key PEM file</td></tr>
+      <tr><td><code>JWT_PUBLIC_KEY</code></td><td>Path to public key PEM file</td></tr>
+      <tr><td><code>JWT_PASSPHRASE</code></td><td>Passphrase for the JWT keys</td></tr>
+    </tbody>
+  </table>
+  <p>JWT keys are auto-generated on first startup if not present.</p>
+
+  <h2>Storage</h2>
+  <table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>STORAGE_ADAPTER</code></td><td><code>local</code></td><td><code>local</code> or <code>s3</code></td></tr>
+      <tr><td><code>STORAGE_LOCAL_PATH</code></td><td><code>/data/attachments</code></td><td>Local storage directory</td></tr>
+      <tr><td><code>STORAGE_S3_BUCKET</code></td><td>—</td><td>S3 bucket name</td></tr>
+      <tr><td><code>STORAGE_S3_REGION</code></td><td>—</td><td>S3 region</td></tr>
+      <tr><td><code>STORAGE_S3_KEY</code></td><td>—</td><td>S3 access key</td></tr>
+      <tr><td><code>STORAGE_S3_SECRET</code></td><td>—</td><td>S3 secret key</td></tr>
+      <tr><td><code>STORAGE_S3_ENDPOINT</code></td><td>—</td><td>Custom S3 endpoint (for compatible services)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Other</h2>
+  <table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>CORS_ALLOW_ORIGIN</code></td><td><code>*</code></td><td>CORS allowed origins (regex)</td></tr>
+      <tr><td><code>OOPSIE_VERSION</code></td><td><code>1.0.0</code></td><td>Current version (for update check)</td></tr>
+    </tbody>
+  </table>
+</DocsLayout>

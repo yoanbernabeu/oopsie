@@ -1,0 +1,44 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+
+const webhookPayloadCode = `{
+  "event": "report.created",
+  "project": {
+    "id": "uuid",
+    "name": "My App"
+  },
+  "report": {
+    "id": "uuid",
+    "message": "Button not working on mobile",
+    "category": "ui",
+    "severity": "high",
+    "page_url": "https://example.com/checkout",
+    "reporter_email": "user@example.com",
+    "created_at": "2026-02-21T10:30:00+00:00"
+  }
+}`;
+---
+
+<DocsLayout title="Webhooks">
+  <p>Oopsie can send a webhook notification when a new bug report is received.</p>
+
+  <h2>Configuration</h2>
+  <p>Set the webhook URL in your project settings (Dashboard &gt; Projects &gt; Edit). The server will send a <code>POST</code> request to this URL for each new report.</p>
+
+  <h2>Payload</h2>
+  <pre><code class="language-json" set:text={webhookPayloadCode} /></pre>
+
+  <h2>Behavior</h2>
+  <ul>
+    <li>Webhooks are fire-and-forget (no retries in V1)</li>
+    <li>Timeout: 5 seconds</li>
+    <li>Failed webhooks are silently ignored</li>
+  </ul>
+
+  <h2>Use cases</h2>
+  <ul>
+    <li>Post to Slack or Discord via incoming webhooks</li>
+    <li>Trigger a CI/CD pipeline</li>
+    <li>Create a GitHub issue automatically</li>
+  </ul>
+</DocsLayout>

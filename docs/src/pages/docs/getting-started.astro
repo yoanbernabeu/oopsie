@@ -1,0 +1,47 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Getting Started">
+  <p>Get Oopsie running in minutes with Docker Compose.</p>
+
+  <h2>Prerequisites</h2>
+  <ul>
+    <li><a href="https://docs.docker.com/get-docker/">Docker</a> and Docker Compose installed</li>
+  </ul>
+
+  <h2>1. Clone the repository</h2>
+  <pre><code>git clone https://github.com/yoanbernabeu/oopsie.git
+cd oopsie</code></pre>
+
+  <h2>2. Start the services</h2>
+  <pre><code>docker compose up -d</code></pre>
+  <p>This starts three services:</p>
+  <ul>
+    <li><strong>Server</strong> (API) — <code>http://localhost:8080</code></li>
+    <li><strong>Dashboard</strong> — <code>http://localhost:3000</code></li>
+    <li><strong>PostgreSQL</strong> — internal database</li>
+  </ul>
+
+  <h2>3. Complete the setup wizard</h2>
+  <p>Open <code>http://localhost:3000</code> in your browser. On first launch, you'll be guided through:</p>
+  <ol>
+    <li>Creating your admin account</li>
+    <li>Naming your instance</li>
+    <li>Creating your first project</li>
+    <li>Getting the SDK integration snippet</li>
+  </ol>
+
+  <h2>4. Add the SDK to your app</h2>
+  <p>Copy the snippet from the setup wizard and add it to your application. See the <a href="/docs/sdk/installation">SDK Installation</a> guide for details.</p>
+
+  <h2>5. Submit a test report</h2>
+  <p>Click the floating "Report a bug" button in your app, fill in the form, and verify it appears in the dashboard.</p>
+
+  <h2>Next steps</h2>
+  <ul>
+    <li><a href="/docs/sdk/configuration">SDK Configuration</a> — Customize the widget, sanitization rules, and more</li>
+    <li><a href="/docs/server/configuration">Server Configuration</a> — Environment variables reference</li>
+    <li><a href="/docs/server/webhooks">Webhooks</a> — Get notified on new reports</li>
+  </ul>
+</DocsLayout>

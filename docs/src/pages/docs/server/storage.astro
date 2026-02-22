@@ -1,0 +1,31 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Storage Configuration">
+  <p>Oopsie stores file attachments using <a href="https://flysystem.thephpleague.com/">Flysystem</a>, supporting both local filesystem and S3-compatible storage.</p>
+
+  <h2>Local storage (default)</h2>
+  <p>Files are stored on the server filesystem. In Docker, use a named volume for persistence.</p>
+  <pre><code>STORAGE_ADAPTER=local
+STORAGE_LOCAL_PATH=/data/attachments</code></pre>
+
+  <h2>S3-compatible storage</h2>
+  <p>Works with AWS S3, DigitalOcean Spaces, Scaleway Object Storage, MinIO, etc.</p>
+  <pre><code>STORAGE_ADAPTER=s3
+STORAGE_S3_BUCKET=oopsie-attachments
+STORAGE_S3_REGION=eu-west-1
+STORAGE_S3_KEY=your-access-key
+STORAGE_S3_SECRET=your-secret-key
+STORAGE_S3_ENDPOINT=https://s3.example.com  # Optional, for S3-compatible services</code></pre>
+
+  <h2>Limits</h2>
+  <ul>
+    <li>Maximum file size: <strong>10 MB</strong> per attachment</li>
+    <li>Allowed MIME types: images (PNG, JPEG, GIF, WebP, SVG), PDF, text, CSV, JSON, video (MP4, WebM)</li>
+    <li>Multiple attachments per report</li>
+  </ul>
+
+  <h2>Data retention</h2>
+  <p>Attachments are automatically deleted when their parent report is purged. Configure retention per project in the dashboard (default: 90 days).</p>
+</DocsLayout>

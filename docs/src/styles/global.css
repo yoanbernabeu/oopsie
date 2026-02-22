@@ -1,0 +1,312 @@
+/* ===== Custom scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #09090B;
+}
+::-webkit-scrollbar-thumb {
+  background: #3F3F46;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #52525B;
+}
+
+/* ===== Selection ===== */
+::selection {
+  background: rgba(255, 92, 57, 0.3);
+  color: #FAFAFA;
+}
+
+/* ===== Base ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  scrollbar-color: #3F3F46 #09090B;
+  scrollbar-width: thin;
+}
+
+/* ===== Animated gradient text ===== */
+.text-gradient {
+  background: linear-gradient(135deg, #FF5C39 0%, #FBBF24 50%, #FF5C39 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 6s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ===== Dot grid background ===== */
+.bg-dot-grid {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ===== Gradient orbs ===== */
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ===== Terminal-style code blocks ===== */
+.prose-oopsie pre::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #FF5C39;
+  box-shadow: 18px 0 0 #FBBF24, 36px 0 0 #4ADE80;
+}
+
+/* ===== Feature card hover glow ===== */
+.card-glow {
+  position: relative;
+  background: #18181B;
+  border: 1px solid #27272A;
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;
+}
+
+.card-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 92, 57, 0.4), rgba(56, 189, 248, 0.4));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card-glow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(255, 92, 57, 0.08), 0 4px 16px rgba(0, 0, 0, 0.3);
+  border-color: transparent;
+}
+
+.card-glow:hover::before {
+  opacity: 1;
+}
+
+/* ===== Noise texture overlay ===== */
+.noise-overlay::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.015;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  z-index: 9999;
+}
+
+/* ===== Sidebar active link indicator ===== */
+.sidebar-link-active {
+  position: relative;
+}
+
+.sidebar-link-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: #FF5C39;
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(255, 92, 57, 0.4);
+}
+
+/* ===== Staggered fade-in for feature cards ===== */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.25s; }
+.stagger-3 { animation-delay: 0.4s; }
+
+/* ===== Floating shapes ===== */
+.shape-diamond {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255, 92, 57, 0.2);
+  transform: rotate(45deg);
+}
+
+.shape-circle {
+  width: 16px;
+  height: 16px;
+  border: 2px dashed rgba(56, 189, 248, 0.2);
+  border-radius: 50%;
+}
+
+.shape-ring {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(251, 191, 36, 0.15);
+  border-radius: 50%;
+}
+
+/* ===== Mobile sidebar overlay ===== */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 9, 11, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== Install code block ===== */
+.install-block {
+  background: #111114;
+  border: 1px solid #27272A;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.9rem;
+  color: #D4D4D8;
+  position: relative;
+  overflow: hidden;
+}
+
+.install-block::before {
+  content: '$';
+  color: #FF5C39;
+  margin-right: 0.75rem;
+  font-weight: 500;
+}
+
+/* ===== CTA buttons ===== */
+.btn-primary {
+  background: #FF5C39;
+  color: white;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  background: #E5421F;
+  box-shadow: 0 0 24px rgba(255, 92, 57, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  border: 1px solid #3F3F46;
+  color: #A1A1AA;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: #52525B;
+  color: #E4E4E7;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* ===== Header states ===== */
+.header-transparent {
+  background: transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.header-scrolled {
+  background: rgba(9, 9, 11, 0.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(39, 39, 42, 0.5);
+}
+
+/* ===== Code preview card (homepage) ===== */
+.code-preview-card {
+  background: #111114;
+}
+
+.code-tab {
+  color: #52525B;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.code-tab:hover {
+  color: #A1A1AA;
+}
+
+.code-tab.active {
+  color: #FF5C39;
+  border-bottom-color: #FF5C39;
+}
+
+.code-panel {
+  display: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.code-panel.active {
+  display: block;
+}
+
+/* ===== Quick link cards ===== */
+.quick-link-card {
+  display: block;
+  padding: 1rem 1.25rem;
+  background: #18181B;
+  border: 1px solid #27272A;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.quick-link-card:hover {
+  border-color: #3F3F46;
+  background: #1c1c1f;
+}
+
+/* ===== Prev / Next navigation ===== */
+.prev-next-card {
+  display: block;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.prev-next-card:hover {
+  background: rgba(255, 92, 57, 0.03);
+  border-color: rgba(255, 92, 57, 0.1);
+}
+
+/* ===== Step card (how it works) ===== */
+.step-card {
+  transition: all 0.3s ease;
+}
+
+.step-card:hover {
+  border-color: rgba(255, 92, 57, 0.2);
+  background: rgba(24, 24, 27, 0.8);
+}

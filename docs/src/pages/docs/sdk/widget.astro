@@ -1,0 +1,35 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+
+const positionCode = `widget: {
+  position: 'bottom-right', // default
+  // Also: 'bottom-left', 'top-right', 'top-left'
+}`;
+
+const colorThemeCode = `widget: {
+  color: '#FF5C39', // Any hex color
+  theme: 'light',   // 'light' or 'dark'
+}`;
+
+const textIconCode = `widget: {
+  text: 'Report a bug',
+  icon: true, // Show bug icon before text
+}`;
+---
+
+<DocsLayout title="Widget Customization">
+  <p>The Oopsie widget is a floating button that opens the bug report form. It's rendered inside a Shadow DOM to avoid style conflicts with your application.</p>
+
+  <h2>Position</h2>
+  <p>Place the widget in any corner of the viewport:</p>
+  <pre><code class="language-javascript" set:text={positionCode} /></pre>
+
+  <h2>Color & Theme</h2>
+  <pre><code class="language-javascript" set:text={colorThemeCode} /></pre>
+
+  <h2>Text & Icon</h2>
+  <pre><code class="language-javascript" set:text={textIconCode} /></pre>
+
+  <h2>Disable the widget</h2>
+  <p>Set <code>enabled: false</code> to use <a href="/docs/sdk/headless">headless mode</a> instead.</p>
+</DocsLayout>

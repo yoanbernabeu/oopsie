@@ -1,0 +1,38 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# PHP / Composer
+/server/vendor/
+/server/var/
+/server/config/jwt/*.pem
+
+# Node
+node_modules/
+.next/
+dist/
+.turbo/
+
+# Build artifacts
+*.tsbuildinfo
+
+# Docker
+docker-compose.override.yml
+
+# Misc
+*.log
+coverage/
+.phpunit.result.cache
+server/.env.dev
+sdk/.astro/

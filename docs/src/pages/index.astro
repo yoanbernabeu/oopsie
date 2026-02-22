@@ -1,0 +1,412 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const codeNpm = `<span class="text-zinc-600">// Install</span>
+<span class="text-coral">npm</span> install @oopsie/sdk
+
+<span class="text-zinc-600">// Initialize in your app</span>
+<span class="text-sky-400">import</span> { <span class="text-amber-300">Oopsie</span> } <span class="text-sky-400">from</span> <span class="text-emerald-400">'@oopsie/sdk'</span>;
+
+<span class="text-amber-300">Oopsie</span>.<span class="text-sky-300">init</span>({
+  <span class="text-zinc-300">serverUrl</span>: <span class="text-emerald-400">'https://oopsie.yourapp.com'</span>,
+  <span class="text-zinc-300">projectKey</span>: <span class="text-emerald-400">'your-project-key'</span>,
+});`;
+
+const codeCdn = `<span class="text-zinc-600">&lt;!-- Add to your HTML --&gt;</span>
+<span class="text-sky-400">&lt;script</span> <span class="text-amber-300">src</span>=<span class="text-emerald-400">"https://unpkg.com/@oopsie/sdk"</span><span class="text-sky-400">&gt;&lt;/script&gt;</span>
+
+<span class="text-sky-400">&lt;script&gt;</span>
+  <span class="text-amber-300">Oopsie</span>.<span class="text-sky-300">init</span>({
+    <span class="text-zinc-300">serverUrl</span>: <span class="text-emerald-400">'https://oopsie.yourapp.com'</span>,
+    <span class="text-zinc-300">projectKey</span>: <span class="text-emerald-400">'your-project-key'</span>,
+  });
+<span class="text-sky-400">&lt;/script&gt;</span>`;
+
+const codeHeadless = `<span class="text-zinc-600">// Full control, no widget UI</span>
+<span class="text-sky-400">import</span> { <span class="text-amber-300">Oopsie</span> } <span class="text-sky-400">from</span> <span class="text-emerald-400">'@oopsie/sdk'</span>;
+
+<span class="text-sky-400">const</span> <span class="text-zinc-100">client</span> = <span class="text-amber-300">Oopsie</span>.<span class="text-sky-300">init</span>({
+  <span class="text-zinc-300">serverUrl</span>: <span class="text-emerald-400">'https://oopsie.yourapp.com'</span>,
+  <span class="text-zinc-300">projectKey</span>: <span class="text-emerald-400">'your-project-key'</span>,
+  <span class="text-zinc-300">widget</span>: <span class="text-amber-300">false</span>,
+});
+
+<span class="text-zinc-600">// Trigger from your own button</span>
+<span class="text-zinc-100">myButton</span>.<span class="text-sky-300">addEventListener</span>(<span class="text-emerald-400">'click'</span>, () =&gt; {
+  <span class="text-zinc-100">client</span>.<span class="text-sky-300">sendReport</span>({ <span class="text-zinc-300">message</span>: <span class="text-emerald-400">'Bug found!'</span> });
+});`;
+---
+
+<BaseLayout title="Home">
+  <Header variant="transparent" />
+
+  <div class="min-h-screen relative overflow-hidden">
+    <!-- Background effects -->
+    <div class="gradient-orb w-[600px] h-[600px] bg-coral/8 top-[-200px] right-[-150px] animate-pulse-soft"></div>
+    <div class="gradient-orb w-[400px] h-[400px] bg-sky-400/5 bottom-[10%] left-[-100px] animate-pulse-soft" style="animation-delay: 2s;"></div>
+    <div class="absolute inset-0 bg-dot-grid"></div>
+
+    <!-- Floating shapes -->
+    <div class="hidden lg:block">
+      <div class="shape-diamond absolute top-[18%] right-[12%] animate-float"></div>
+      <div class="shape-circle absolute top-[35%] left-[8%] animate-float-slow"></div>
+      <div class="shape-ring absolute bottom-[30%] right-[18%] animate-float-slower"></div>
+    </div>
+
+    <!-- Hero -->
+    <main class="relative z-10 max-w-6xl mx-auto px-6 lg:px-10 pt-32 lg:pt-44 pb-20 text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-surface-3/80 bg-surface-2/50 text-xs text-zinc-400 mb-8 opacity-0 animate-fade-in">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Open source &amp; self-hosted
+      </div>
+
+      <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold text-zinc-50 tracking-tight leading-[1.1] mb-6 opacity-0 animate-fade-in-up" style="animation-delay: 0.15s;">
+        Bug reporting that<br />
+        <span class="text-gradient">respects your users</span>
+      </h1>
+
+      <p class="text-lg lg:text-xl text-zinc-500 max-w-2xl mx-auto mb-10 leading-relaxed opacity-0 animate-fade-in-up" style="animation-delay: 0.3s;">
+        Oopsie is a user-initiated bug reporting tool.<br class="hidden sm:block" />
+        Nothing leaves the browser until the user clicks "Report a bug."
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 opacity-0 animate-fade-in-up" style="animation-delay: 0.45s;">
+        <a href="/docs/getting-started" class="btn-primary px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wide inline-flex items-center gap-2">
+          Get Started
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+          </svg>
+        </a>
+        <a href="https://github.com/yoanbernabeu/oopsie" target="_blank" rel="noopener" class="btn-secondary px-7 py-3.5 rounded-xl font-medium text-sm inline-flex items-center gap-2">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="opacity-70">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+          View on GitHub
+        </a>
+      </div>
+
+      <!-- Install command -->
+      <div class="max-w-md mx-auto mb-8 opacity-0 animate-fade-in-up" style="animation-delay: 0.6s;">
+        <div class="install-block text-left">
+          npm install @oopsie/sdk
+        </div>
+      </div>
+    </main>
+
+    <!-- Stats / Trust indicators -->
+    <section class="relative z-10 max-w-5xl mx-auto px-6 lg:px-10 pb-24">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 opacity-0 animate-fade-in-up" style="animation-delay: 0.75s;">
+        <div class="text-center">
+          <div class="text-2xl lg:text-3xl font-display font-bold text-zinc-100">100%</div>
+          <div class="text-xs text-zinc-600 mt-1">Privacy-First</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl lg:text-3xl font-display font-bold text-zinc-100">&lt;5min</div>
+          <div class="text-xs text-zinc-600 mt-1">Setup Time</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl lg:text-3xl font-display font-bold text-zinc-100">AGPLv3</div>
+          <div class="text-xs text-zinc-600 mt-1">Open Source</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl lg:text-3xl font-display font-bold text-zinc-100">0 KB</div>
+          <div class="text-xs text-zinc-600 mt-1">Sent Without Consent</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="relative z-10 max-w-6xl mx-auto px-6 lg:px-10 pb-28">
+      <div class="text-center mb-14">
+        <h2 class="font-display text-3xl lg:text-4xl font-bold text-zinc-100 mb-4">Everything you need</h2>
+        <p class="text-zinc-500 max-w-lg mx-auto">A complete bug reporting toolkit that puts your users in control of their data.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Feature 1 -->
+        <div class="card-glow p-7">
+          <div class="w-10 h-10 rounded-xl bg-coral-100 flex items-center justify-center mb-5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF5C39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-bold text-zinc-100 mb-2">User-Initiated</h3>
+          <p class="text-sm text-zinc-500 leading-relaxed">
+            Data only leaves the browser when the user explicitly decides to report a bug. Full GDPR consent built-in.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="card-glow p-7">
+          <div class="w-10 h-10 rounded-xl bg-sky-400/10 flex items-center justify-center mb-5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+              <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+              <line x1="6" y1="6" x2="6.01" y2="6" />
+              <line x1="6" y1="18" x2="6.01" y2="18" />
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-bold text-zinc-100 mb-2">Self-Hosted</h3>
+          <p class="text-sm text-zinc-500 leading-relaxed">
+            Deploy with Docker Compose in minutes. Your data stays on your infrastructure. No SaaS dependency.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="card-glow p-7">
+          <div class="w-10 h-10 rounded-xl bg-emerald-400/10 flex items-center justify-center mb-5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-bold text-zinc-100 mb-2">Rich Context</h3>
+          <p class="text-sm text-zinc-500 leading-relaxed">
+            Automatic 5-minute rolling buffer with clicks, navigation, console errors, and failed network requests.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="card-glow p-7">
+          <div class="w-10 h-10 rounded-xl bg-amber-400/10 flex items-center justify-center mb-5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-bold text-zinc-100 mb-2">Easy Integration</h3>
+          <p class="text-sm text-zinc-500 leading-relaxed">
+            One-line SDK install with a built-in widget, or use headless mode for full control over the UI.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="card-glow p-7">
+          <div class="w-10 h-10 rounded-xl bg-violet-400/10 flex items-center justify-center mb-5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-bold text-zinc-100 mb-2">Webhooks</h3>
+          <p class="text-sm text-zinc-500 leading-relaxed">
+            Send reports to Slack, Discord, or any service. Integrate with your existing workflow instantly.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="card-glow p-7">
+          <div class="w-10 h-10 rounded-xl bg-rose-400/10 flex items-center justify-center mb-5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FB7185" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-bold text-zinc-100 mb-2">Dashboard</h3>
+          <p class="text-sm text-zinc-500 leading-relaxed">
+            A clean dashboard to browse, filter, and manage bug reports with timeline replay.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="relative z-10 max-w-5xl mx-auto px-6 lg:px-10 pb-28">
+      <div class="text-center mb-14">
+        <h2 class="font-display text-3xl lg:text-4xl font-bold text-zinc-100 mb-4">How it works</h2>
+        <p class="text-zinc-500 max-w-lg mx-auto">Three simple steps from integration to actionable bug reports.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="relative">
+          <div class="step-card p-6 rounded-2xl bg-surface-2 border border-surface-3/60 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-full bg-coral-200 flex items-center justify-center flex-shrink-0">
+                <span class="text-coral font-display font-bold text-sm">1</span>
+              </div>
+              <h3 class="font-display font-bold text-zinc-200">SDK buffers silently</h3>
+            </div>
+            <p class="text-sm text-zinc-500 leading-relaxed">
+              Clicks, navigation, console errors, and network failures are recorded in a rolling 5-minute in-memory buffer. Nothing is sent.
+            </p>
+          </div>
+          <!-- Connector (desktop only) -->
+          <div class="hidden md:block absolute top-1/2 -right-4 w-8 h-px bg-gradient-to-r from-surface-4 to-transparent"></div>
+        </div>
+
+        <div class="relative">
+          <div class="step-card p-6 rounded-2xl bg-surface-2 border border-surface-3/60 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-full bg-coral-200 flex items-center justify-center flex-shrink-0">
+                <span class="text-coral font-display font-bold text-sm">2</span>
+              </div>
+              <h3 class="font-display font-bold text-zinc-200">User clicks "Report"</h3>
+            </div>
+            <p class="text-sm text-zinc-500 leading-relaxed">
+              A widget button (or your own trigger) opens a report form. The user describes the issue and gives consent.
+            </p>
+          </div>
+          <div class="hidden md:block absolute top-1/2 -right-4 w-8 h-px bg-gradient-to-r from-surface-4 to-transparent"></div>
+        </div>
+
+        <div>
+          <div class="step-card p-6 rounded-2xl bg-surface-2 border border-surface-3/60 h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-full bg-coral-200 flex items-center justify-center flex-shrink-0">
+                <span class="text-coral font-display font-bold text-sm">3</span>
+              </div>
+              <h3 class="font-display font-bold text-zinc-200">Data sent to you</h3>
+            </div>
+            <p class="text-sm text-zinc-500 leading-relaxed">
+              The report, timeline, and attachments are sent to your self-hosted Oopsie server. Your data never leaves your infrastructure.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code Preview -->
+    <section class="relative z-10 max-w-5xl mx-auto px-6 lg:px-10 pb-28">
+      <div class="text-center mb-14">
+        <h2 class="font-display text-3xl lg:text-4xl font-bold text-zinc-100 mb-4">Drop-in integration</h2>
+        <p class="text-zinc-500 max-w-lg mx-auto">Add Oopsie to your app with just a few lines of code.</p>
+      </div>
+
+      <div class="code-preview-card rounded-2xl overflow-hidden border border-surface-3/60">
+        <!-- Tab bar -->
+        <div class="flex items-center gap-0 bg-surface-1 border-b border-surface-3/50 px-4">
+          <button class="code-tab active px-4 py-3 text-xs font-medium" data-tab="npm">
+            npm
+          </button>
+          <button class="code-tab px-4 py-3 text-xs font-medium" data-tab="cdn">
+            CDN
+          </button>
+          <button class="code-tab px-4 py-3 text-xs font-medium" data-tab="headless">
+            Headless
+          </button>
+        </div>
+        <!-- Code panels -->
+        <div class="bg-surface-1 p-6">
+          <pre id="code-npm" class="code-panel active text-sm font-mono text-zinc-300 leading-relaxed"><code set:html={codeNpm} /></pre>
+          <pre id="code-cdn" class="code-panel text-sm font-mono text-zinc-300 leading-relaxed"><code set:html={codeCdn} /></pre>
+          <pre id="code-headless" class="code-panel text-sm font-mono text-zinc-300 leading-relaxed"><code set:html={codeHeadless} /></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick links -->
+    <section class="relative z-10 max-w-5xl mx-auto px-6 lg:px-10 pb-28">
+      <div class="text-center mb-14">
+        <h2 class="font-display text-3xl lg:text-4xl font-bold text-zinc-100 mb-4">Explore the docs</h2>
+        <p class="text-zinc-500 max-w-lg mx-auto">Jump straight to what you need.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a href="/docs/getting-started" class="quick-link-card group">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-coral-100 flex items-center justify-center flex-shrink-0 group-hover:bg-coral-200 transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF5C39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="font-semibold text-zinc-200 text-sm group-hover:text-coral transition-colors">Quick Start</h3>
+              <p class="text-xs text-zinc-600 mt-0.5">Get up and running in under 5 minutes</p>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-zinc-700 group-hover:text-coral group-hover:translate-x-1 transition-all flex-shrink-0">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </div>
+        </a>
+
+        <a href="/docs/sdk/installation" class="quick-link-card group">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-sky-400/10 flex items-center justify-center flex-shrink-0 group-hover:bg-sky-400/20 transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+              </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="font-semibold text-zinc-200 text-sm group-hover:text-sky-400 transition-colors">SDK Installation</h3>
+              <p class="text-xs text-zinc-600 mt-0.5">npm, CDN, or headless integration</p>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-zinc-700 group-hover:text-sky-400 group-hover:translate-x-1 transition-all flex-shrink-0">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </div>
+        </a>
+
+        <a href="/docs/server/configuration" class="quick-link-card group">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-amber-400/10 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-400/20 transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+              </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="font-semibold text-zinc-200 text-sm group-hover:text-amber-400 transition-colors">Server Configuration</h3>
+              <p class="text-xs text-zinc-600 mt-0.5">Environment variables and deployment</p>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-zinc-700 group-hover:text-amber-400 group-hover:translate-x-1 transition-all flex-shrink-0">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </div>
+        </a>
+
+        <a href="/docs/server/webhooks" class="quick-link-card group">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-violet-400/10 flex items-center justify-center flex-shrink-0 group-hover:bg-violet-400/20 transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="font-semibold text-zinc-200 text-sm group-hover:text-violet-400 transition-colors">Webhooks</h3>
+              <p class="text-xs text-zinc-600 mt-0.5">Slack, Discord, and custom integrations</p>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-zinc-700 group-hover:text-violet-400 group-hover:translate-x-1 transition-all flex-shrink-0">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="relative z-10 max-w-4xl mx-auto px-6 lg:px-10 pb-28">
+      <div class="relative rounded-2xl border border-surface-3/60 bg-surface-2/80 p-10 lg:p-14 text-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-coral/5 via-transparent to-sky-400/5 pointer-events-none"></div>
+        <div class="relative">
+          <h2 class="font-display text-2xl lg:text-3xl font-bold text-zinc-100 mb-4">Ready to get started?</h2>
+          <p class="text-zinc-500 mb-8 max-w-md mx-auto">Deploy Oopsie in minutes and start collecting meaningful bug reports from your users.</p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="/docs/getting-started" class="btn-primary px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wide inline-flex items-center gap-2">
+              Read the docs
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+              </svg>
+            </a>
+            <a href="https://github.com/yoanbernabeu/oopsie" target="_blank" rel="noopener" class="btn-secondary px-7 py-3.5 rounded-xl font-medium text-sm inline-flex items-center gap-2">
+              Star on GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <Footer />
+
+  <script is:inline>
+    document.querySelectorAll('.code-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var tabId = tab.getAttribute('data-tab');
+        document.querySelectorAll('.code-tab').forEach(function(t) { t.classList.remove('active'); });
+        document.querySelectorAll('.code-panel').forEach(function(p) { p.classList.remove('active'); });
+        tab.classList.add('active');
+        var el = document.getElementById('code-' + tabId);
+        if (el) el.classList.add('active');
+      });
+    });
+  </script>
+</BaseLayout>

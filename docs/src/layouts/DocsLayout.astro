@@ -1,0 +1,207 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const currentPath = Astro.url.pathname.replace(/\/$/, '');
+
+// Build breadcrumbs from path
+const pathParts = currentPath.split('/').filter(Boolean);
+const breadcrumbs = pathParts.map((part, index) => {
+  const href = '/' + pathParts.slice(0, index + 1).join('/');
+  const label = part.charAt(0).toUpperCase() + part.slice(1).replace(/-/g, ' ');
+  return { href, label };
+});
+
+// Navigation for prev/next
+const allPages = [
+  { href: '/docs/getting-started', label: 'Quick Start' },
+  { href: '/docs/sdk/installation', label: 'Installation' },
+  { href: '/docs/sdk/configuration', label: 'SDK Configuration' },
+  { href: '/docs/sdk/widget', label: 'Widget Customization' },
+  { href: '/docs/sdk/headless', label: 'Headless Mode' },
+  { href: '/docs/server/configuration', label: 'Server Configuration' },
+  { href: '/docs/server/webhooks', label: 'Webhooks' },
+  { href: '/docs/server/storage', label: 'Storage' },
+  { href: '/docs/contributing', label: 'Contributing' },
+];
+
+const currentIndex = allPages.findIndex((p) => p.href === currentPath);
+const prevPage = currentIndex > 0 ? allPages[currentIndex - 1] : null;
+const nextPage = currentIndex < allPages.length - 1 ? allPages[currentIndex + 1] : null;
+---
+
+<BaseLayout title={title}>
+  <!-- Mobile top bar -->
+  <header class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-surface-0/90 backdrop-blur-xl border-b border-surface-3/50 px-4 h-14 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <span class="text-lg">&#x1F41B;</span>
+      <span class="font-display text-lg font-bold text-zinc-100">Oopsie</span>
+    </a>
+    <button id="menu-toggle" class="p-2 text-zinc-400 hover:text-zinc-200 transition-colors" aria-label="Toggle navigation">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="3" y1="5" x2="17" y2="5" />
+        <line x1="3" y1="10" x2="17" y2="10" />
+        <line x1="3" y1="15" x2="17" y2="15" />
+      </svg>
+    </button>
+  </header>
+
+  <!-- Desktop top bar -->
+  <header class="hidden lg:flex fixed top-0 left-72 right-0 z-40 bg-surface-0/80 backdrop-blur-xl border-b border-surface-3/30 px-10 h-14 items-center justify-between">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center gap-1.5 text-xs">
+      <a href="/" class="text-zinc-600 hover:text-zinc-400 transition-colors">Home</a>
+      {breadcrumbs.map((crumb, i) => (
+        <>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-zinc-700">
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+          {i === breadcrumbs.length - 1 ? (
+            <span class="text-zinc-400">{crumb.label}</span>
+          ) : (
+            <a href={crumb.href} class="text-zinc-600 hover:text-zinc-400 transition-colors">{crumb.label}</a>
+          )}
+        </>
+      ))}
+    </nav>
+
+    <!-- Top right actions -->
+    <div class="flex items-center gap-3">
+      <a
+        href="https://github.com/yoanbernabeu/oopsie"
+        target="_blank"
+        rel="noopener"
+        class="flex items-center gap-1.5 text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
+      >
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+        </svg>
+        GitHub
+      </a>
+    </div>
+  </header>
+
+  <!-- Sidebar overlay (mobile) -->
+  <div id="sidebar-overlay" class="sidebar-overlay lg:hidden"></div>
+
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-surface-1 border-r border-surface-3/30 z-50 -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto">
+      <!-- Logo -->
+      <div class="p-5 pb-0">
+        <a href="/" class="flex items-center gap-2.5 group">
+          <span class="text-xl transition-transform duration-300 group-hover:rotate-12 inline-block">&#x1F41B;</span>
+          <span class="font-display text-xl font-bold text-zinc-100">Oopsie</span>
+          <span class="inline-flex items-center px-1.5 py-0.5 rounded bg-coral-100 text-coral text-[9px] font-mono font-medium tracking-wide ml-auto">
+            v0.x
+          </span>
+        </a>
+      </div>
+
+      <!-- Search (placeholder) -->
+      <div class="px-5 py-4">
+        <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-surface-0/60 border border-surface-3/40 text-xs text-zinc-600">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 opacity-50">
+            <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          Search docs...
+          <kbd class="ml-auto text-[10px] text-zinc-700 bg-surface-3/40 px-1.5 py-0.5 rounded font-mono">/</kbd>
+        </div>
+      </div>
+
+      <!-- Nav -->
+      <div class="px-4 pb-8">
+        <Sidebar />
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="flex-1 lg:ml-72 min-h-screen">
+      <div class="max-w-3xl mx-auto px-6 lg:px-10 pt-20 lg:pt-24 pb-10">
+        <!-- Title area -->
+        <div class="mb-10">
+          <h1 class="font-display text-3xl lg:text-4xl font-bold text-zinc-50 tracking-tight">{title}</h1>
+          <div class="mt-3 h-px bg-gradient-to-r from-coral/40 via-coral/10 to-transparent"></div>
+        </div>
+
+        <!-- Prose content -->
+        <div class="prose prose-oopsie">
+          <slot />
+        </div>
+      </div>
+
+      <!-- Prev / Next navigation -->
+      <div class="max-w-3xl mx-auto px-6 lg:px-10 pb-16">
+        <div class="flex items-stretch gap-4 pt-8 border-t border-surface-3/30">
+          {prevPage ? (
+            <a href={prevPage.href} class="prev-next-card group flex-1">
+              <span class="text-[10px] font-medium uppercase tracking-widest text-zinc-600 mb-1.5 block">Previous</span>
+              <span class="text-sm font-semibold text-zinc-300 group-hover:text-coral transition-colors inline-flex items-center gap-1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:-translate-x-0.5 transition-transform">
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+                {prevPage.label}
+              </span>
+            </a>
+          ) : <div class="flex-1" />}
+
+          {nextPage ? (
+            <a href={nextPage.href} class="prev-next-card group flex-1 text-right">
+              <span class="text-[10px] font-medium uppercase tracking-widest text-zinc-600 mb-1.5 block">Next</span>
+              <span class="text-sm font-semibold text-zinc-300 group-hover:text-coral transition-colors inline-flex items-center gap-1.5 justify-end">
+                {nextPage.label}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:translate-x-0.5 transition-transform">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </span>
+            </a>
+          ) : <div class="flex-1" />}
+        </div>
+      </div>
+
+      <!-- Footer in docs -->
+      <div class="lg:border-t lg:border-surface-3/20">
+        <div class="max-w-3xl mx-auto px-6 lg:px-10 py-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p class="text-xs text-zinc-700">
+            &copy; {new Date().getFullYear()} Oopsie. Built by <a href="https://github.com/yoanbernabeu" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-300 transition-colors">Yoan Bernabeu</a>
+          </p>
+          <p class="text-xs text-zinc-700">
+            <a href="https://github.com/yoanbernabeu/oopsie" target="_blank" rel="noopener" class="text-zinc-500 hover:text-zinc-300 transition-colors">Edit on GitHub</a>
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+
+    function openSidebar() {
+      sidebar?.classList.remove('-translate-x-full');
+      overlay?.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+      sidebar?.classList.add('-translate-x-full');
+      overlay?.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    toggle?.addEventListener('click', () => {
+      const isOpen = !sidebar?.classList.contains('-translate-x-full');
+      if (isOpen) closeSidebar();
+      else openSidebar();
+    });
+
+    overlay?.addEventListener('click', closeSidebar);
+  </script>
+</BaseLayout>

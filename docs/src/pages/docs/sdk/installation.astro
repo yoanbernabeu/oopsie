@@ -1,0 +1,44 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+
+const npmInitCode = `import Oopsie from '@oopsie/sdk';
+
+Oopsie.init({
+  serverUrl: 'https://oopsie.example.com',
+  apiKey: 'your_project_api_key',
+});`;
+
+const cdnCode = `<script async src="https://cdn.oopsie.example.com/sdk/v1/oopsie.min.js"></script>
+<script>
+  window.OopsieConfig = {
+    serverUrl: 'https://oopsie.example.com',
+    apiKey: 'your_project_api_key',
+  };
+</script>`;
+---
+
+<DocsLayout title="SDK Installation">
+  <p>Install the Oopsie SDK in your application using npm or a CDN script tag.</p>
+
+  <h2>npm</h2>
+  <pre><code>npm install @oopsie/sdk</code></pre>
+  <pre><code class="language-javascript" set:text={npmInitCode} /></pre>
+
+  <h2>CDN</h2>
+  <pre><code class="language-html" set:text={cdnCode} /></pre>
+  <p>When using the CDN, the SDK automatically initializes from <code>window.OopsieConfig</code>.</p>
+
+  <h2>Output formats</h2>
+  <p>The SDK is distributed in three formats:</p>
+  <ul>
+    <li><strong>ESM</strong> — For modern bundlers (Vite, webpack, etc.)</li>
+    <li><strong>CJS</strong> — For CommonJS environments (Node.js)</li>
+    <li><strong>IIFE</strong> — For direct browser usage via script tag</li>
+  </ul>
+
+  <h2>Next steps</h2>
+  <ul>
+    <li><a href="/docs/sdk/configuration">Full configuration reference</a></li>
+    <li><a href="/docs/sdk/widget">Widget customization</a></li>
+  </ul>
+</DocsLayout>

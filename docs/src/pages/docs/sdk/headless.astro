@@ -1,0 +1,43 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+
+const setupCode = `Oopsie.init({
+  serverUrl: 'https://oopsie.example.com',
+  apiKey: 'your_api_key',
+  widget: {
+    enabled: false, // Disable floating button
+  },
+});`;
+
+const apiCode = `// Open the report form
+Oopsie.open();
+
+// Close the report form
+Oopsie.close();`;
+
+const triggerCode = `<button onclick="Oopsie.open()">
+  Report a Bug
+</button>`;
+
+const shortcutCode = `document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && e.shiftKey && e.key === 'B') {
+    Oopsie.open();
+  }
+});`;
+---
+
+<DocsLayout title="Headless Mode">
+  <p>In headless mode, the floating widget is hidden. You control when the report form appears using the programmatic API.</p>
+
+  <h2>Setup</h2>
+  <pre><code class="language-javascript" set:text={setupCode} /></pre>
+
+  <h2>API</h2>
+  <pre><code class="language-javascript" set:text={apiCode} /></pre>
+
+  <h2>Example: custom trigger button</h2>
+  <pre><code class="language-html" set:text={triggerCode} /></pre>
+
+  <h2>Example: keyboard shortcut</h2>
+  <pre><code class="language-javascript" set:text={shortcutCode} /></pre>
+</DocsLayout>
