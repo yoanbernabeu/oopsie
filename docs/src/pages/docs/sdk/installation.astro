@@ -1,7 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 
-const npmInitCode = `import Oopsie from '@oopsie/sdk';
+const npmInitCode = `import Oopsie from 'oopsie-sdk';
 
 Oopsie.init({
   serverUrl: 'https://oopsie.example.com',
@@ -21,7 +21,7 @@ const cdnCode = `<script async src="https://cdn.oopsie.example.com/sdk/v1/oopsie
   <p>Install the Oopsie SDK in your application using npm or a CDN script tag.</p>
 
   <h2>npm</h2>
-  <pre><code>npm install @oopsie/sdk</code></pre>
+  <pre><code>npm install oopsie-sdk</code></pre>
   <pre><code class="language-javascript" set:text={npmInitCode} /></pre>
 
   <h2>CDN</h2>
@@ -38,7 +38,7 @@ const cdnCode = `<script async src="https://cdn.oopsie.example.com/sdk/v1/oopsie
 
   <h2>Next steps</h2>
   <ul>
-    <li><a href="/docs/sdk/configuration">Full configuration reference</a></li>
-    <li><a href="/docs/sdk/widget">Widget customization</a></li>
+    <li><a href="/oopsie/docs/sdk/configuration">Full configuration reference</a></li>
+    <li><a href="/oopsie/docs/sdk/widget">Widget customization</a></li>
   </ul>
 </DocsLayout>

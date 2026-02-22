@@ -4,10 +4,10 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 const codeNpm = `<span class="text-zinc-600">// Install</span>
-<span class="text-coral">npm</span> install @oopsie/sdk
+<span class="text-coral">npm</span> install oopsie-sdk
 
 <span class="text-zinc-600">// Initialize in your app</span>
-<span class="text-sky-400">import</span> { <span class="text-amber-300">Oopsie</span> } <span class="text-sky-400">from</span> <span class="text-emerald-400">'@oopsie/sdk'</span>;
+<span class="text-sky-400">import</span> { <span class="text-amber-300">Oopsie</span> } <span class="text-sky-400">from</span> <span class="text-emerald-400">'oopsie-sdk'</span>;
 
 <span class="text-amber-300">Oopsie</span>.<span class="text-sky-300">init</span>({
   <span class="text-zinc-300">serverUrl</span>: <span class="text-emerald-400">'https://oopsie.yourapp.com'</span>,
@@ -15,7 +15,7 @@ const codeNpm = `<span class="text-zinc-600">// Install</span>
 });`;
 
 const codeCdn = `<span class="text-zinc-600">&lt;!-- Add to your HTML --&gt;</span>
-<span class="text-sky-400">&lt;script</span> <span class="text-amber-300">src</span>=<span class="text-emerald-400">"https://unpkg.com/@oopsie/sdk"</span><span class="text-sky-400">&gt;&lt;/script&gt;</span>
+<span class="text-sky-400">&lt;script</span> <span class="text-amber-300">src</span>=<span class="text-emerald-400">"https://unpkg.com/oopsie-sdk"</span><span class="text-sky-400">&gt;&lt;/script&gt;</span>
 
 <span class="text-sky-400">&lt;script&gt;</span>
   <span class="text-amber-300">Oopsie</span>.<span class="text-sky-300">init</span>({
@@ -25,7 +25,7 @@ const codeCdn = `<span class="text-zinc-600">&lt;!-- Add to your HTML --&gt;</sp
 <span class="text-sky-400">&lt;/script&gt;</span>`;
 
 const codeHeadless = `<span class="text-zinc-600">// Full control, no widget UI</span>
-<span class="text-sky-400">import</span> { <span class="text-amber-300">Oopsie</span> } <span class="text-sky-400">from</span> <span class="text-emerald-400">'@oopsie/sdk'</span>;
+<span class="text-sky-400">import</span> { <span class="text-amber-300">Oopsie</span> } <span class="text-sky-400">from</span> <span class="text-emerald-400">'oopsie-sdk'</span>;
 
 <span class="text-sky-400">const</span> <span class="text-zinc-100">client</span> = <span class="text-amber-300">Oopsie</span>.<span class="text-sky-300">init</span>({
   <span class="text-zinc-300">serverUrl</span>: <span class="text-emerald-400">'https://oopsie.yourapp.com'</span>,
@@ -75,7 +75,7 @@ const codeHeadless = `<span class="text-zinc-600">// Full control, no widget UI<
 
       <!-- CTAs -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 opacity-0 animate-fade-in-up" style="animation-delay: 0.45s;">
-        <a href="/docs/getting-started" class="btn-primary px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wide inline-flex items-center gap-2">
+        <a href="/oopsie/docs/getting-started" class="btn-primary px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wide inline-flex items-center gap-2">
           Get Started
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
@@ -92,7 +92,7 @@ const codeHeadless = `<span class="text-zinc-600">// Full control, no widget UI<
       <!-- Install command -->
       <div class="max-w-md mx-auto mb-8 opacity-0 animate-fade-in-up" style="animation-delay: 0.6s;">
         <div class="install-block text-left">
-          npm install @oopsie/sdk
+          npm install oopsie-sdk
         </div>
       </div>
     </main>
@@ -302,7 +302,7 @@ const codeHeadless = `<span class="text-zinc-600">// Full control, no widget UI<
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <a href="/docs/getting-started" class="quick-link-card group">
+        <a href="/oopsie/docs/getting-started" class="quick-link-card group">
           <div class="flex items-center gap-4">
             <div class="w-10 h-10 rounded-xl bg-coral-100 flex items-center justify-center flex-shrink-0 group-hover:bg-coral-200 transition-colors">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF5C39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -319,7 +319,7 @@ const codeHeadless = `<span class="text-zinc-600">// Full control, no widget UI<
           </div>
         </a>
 
-        <a href="/docs/sdk/installation" class="quick-link-card group">
+        <a href="/oopsie/docs/sdk/installation" class="quick-link-card group">
           <div class="flex items-center gap-4">
             <div class="w-10 h-10 rounded-xl bg-sky-400/10 flex items-center justify-center flex-shrink-0 group-hover:bg-sky-400/20 transition-colors">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -336,7 +336,7 @@ const codeHeadless = `<span class="text-zinc-600">// Full control, no widget UI<
           </div>
         </a>
 
-        <a href="/docs/server/configuration" class="quick-link-card group">
+        <a href="/oopsie/docs/server/configuration" class="quick-link-card group">
           <div class="flex items-center gap-4">
             <div class="w-10 h-10 rounded-xl bg-amber-400/10 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-400/20 transition-colors">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -353,7 +353,7 @@ const codeHeadless = `<span class="text-zinc-600">// Full control, no widget UI<
           </div>
         </a>
 
-        <a href="/docs/server/webhooks" class="quick-link-card group">
+        <a href="/oopsie/docs/server/webhooks" class="quick-link-card group">
           <div class="flex items-center gap-4">
             <div class="w-10 h-10 rounded-xl bg-violet-400/10 flex items-center justify-center flex-shrink-0 group-hover:bg-violet-400/20 transition-colors">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -380,7 +380,7 @@ const codeHeadless = `<span class="text-zinc-600">// Full control, no widget UI<
           <h2 class="font-display text-2xl lg:text-3xl font-bold text-zinc-100 mb-4">Ready to get started?</h2>
           <p class="text-zinc-500 mb-8 max-w-md mx-auto">Deploy Oopsie in minutes and start collecting meaningful bug reports from your users.</p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="/docs/getting-started" class="btn-primary px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wide inline-flex items-center gap-2">
+            <a href="/oopsie/docs/getting-started" class="btn-primary px-7 py-3.5 rounded-xl font-semibold text-sm tracking-wide inline-flex items-center gap-2">
               Read the docs
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />

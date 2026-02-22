@@ -20,15 +20,15 @@ const breadcrumbs = pathParts.map((part, index) => {
 
 // Navigation for prev/next
 const allPages = [
-  { href: '/docs/getting-started', label: 'Quick Start' },
-  { href: '/docs/sdk/installation', label: 'Installation' },
-  { href: '/docs/sdk/configuration', label: 'SDK Configuration' },
-  { href: '/docs/sdk/widget', label: 'Widget Customization' },
-  { href: '/docs/sdk/headless', label: 'Headless Mode' },
-  { href: '/docs/server/configuration', label: 'Server Configuration' },
-  { href: '/docs/server/webhooks', label: 'Webhooks' },
-  { href: '/docs/server/storage', label: 'Storage' },
-  { href: '/docs/contributing', label: 'Contributing' },
+  { href: '/oopsie/docs/getting-started', label: 'Quick Start' },
+  { href: '/oopsie/docs/sdk/installation', label: 'Installation' },
+  { href: '/oopsie/docs/sdk/configuration', label: 'SDK Configuration' },
+  { href: '/oopsie/docs/sdk/widget', label: 'Widget Customization' },
+  { href: '/oopsie/docs/sdk/headless', label: 'Headless Mode' },
+  { href: '/oopsie/docs/server/configuration', label: 'Server Configuration' },
+  { href: '/oopsie/docs/server/webhooks', label: 'Webhooks' },
+  { href: '/oopsie/docs/server/storage', label: 'Storage' },
+  { href: '/oopsie/docs/contributing', label: 'Contributing' },
 ];
 
 const currentIndex = allPages.findIndex((p) => p.href === currentPath);
@@ -39,7 +39,7 @@ const nextPage = currentIndex < allPages.length - 1 ? allPages[currentIndex + 1]
 <BaseLayout title={title}>
   <!-- Mobile top bar -->
   <header class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-surface-0/90 backdrop-blur-xl border-b border-surface-3/50 px-4 h-14 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2">
+    <a href="/oopsie/" class="flex items-center gap-2">
       <span class="text-lg">&#x1F41B;</span>
       <span class="font-display text-lg font-bold text-zinc-100">Oopsie</span>
     </a>
@@ -56,7 +56,7 @@ const nextPage = currentIndex < allPages.length - 1 ? allPages[currentIndex + 1]
   <header class="hidden lg:flex fixed top-0 left-72 right-0 z-40 bg-surface-0/80 backdrop-blur-xl border-b border-surface-3/30 px-10 h-14 items-center justify-between">
     <!-- Breadcrumbs -->
     <nav class="flex items-center gap-1.5 text-xs">
-      <a href="/" class="text-zinc-600 hover:text-zinc-400 transition-colors">Home</a>
+      <a href="/oopsie/" class="text-zinc-600 hover:text-zinc-400 transition-colors">Home</a>
       {breadcrumbs.map((crumb, i) => (
         <>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-zinc-700">
@@ -95,7 +95,7 @@ const nextPage = currentIndex < allPages.length - 1 ? allPages[currentIndex + 1]
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-72 bg-surface-1 border-r border-surface-3/30 z-50 -translate-x-full lg:translate-x-0 transition-transform duration-300 overflow-y-auto">
       <!-- Logo -->
       <div class="p-5 pb-0">
-        <a href="/" class="flex items-center gap-2.5 group">
+        <a href="/oopsie/" class="flex items-center gap-2.5 group">
           <span class="text-xl transition-transform duration-300 group-hover:rotate-12 inline-block">&#x1F41B;</span>
           <span class="font-display text-xl font-bold text-zinc-100">Oopsie</span>
           <span class="inline-flex items-center px-1.5 py-0.5 rounded bg-coral-100 text-coral text-[9px] font-mono font-medium tracking-wide ml-auto">
