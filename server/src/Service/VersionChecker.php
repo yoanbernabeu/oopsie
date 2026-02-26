@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -13,9 +14,9 @@ class VersionChecker
     public function __construct(
         private HttpClientInterface $httpClient,
         private CacheInterface $cache,
-        private string $currentVersion = '1.0.0',
+        #[Autowire('%env(OOPSIE_VERSION)%')]
+        private string $currentVersion,
     ) {
-        $this->currentVersion = $_ENV['OOPSIE_VERSION'] ?? '1.0.0';
     }
 
     public function check(): array

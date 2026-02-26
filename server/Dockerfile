@@ -18,6 +18,8 @@ RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
 # Production image
 FROM base AS production
 
+ARG OOPSIE_VERSION=dev
+ENV OOPSIE_VERSION=${OOPSIE_VERSION}
 ENV APP_ENV=prod
 ENV APP_DEBUG=0
 ENV SERVER_NAME=:80

@@ -363,13 +363,13 @@ Oopsie.init({
 
 ```html
 <!-- CDN -->
-<script async src="https://cdn.oopsie.example.com/sdk/v1/oopsie.min.js"></script>
+<script src="https://unpkg.com/oopsie-sdk"></script>
 <script>
-  window.OopsieConfig = {
+  Oopsie.init({
     serverUrl: 'https://oopsie.example.com',
     apiKey: 'project_api_key_here',
     // same options as above
-  };
+  });
 </script>
 ```
 
