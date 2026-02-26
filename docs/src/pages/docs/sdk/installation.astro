@@ -8,12 +8,12 @@ Oopsie.init({
   apiKey: 'your_project_api_key',
 });`;
 
-const cdnCode = `<script async src="https://cdn.oopsie.example.com/sdk/v1/oopsie.min.js"></script>
+const cdnCode = `<script src="https://unpkg.com/oopsie-sdk"></script>
 <script>
-  window.OopsieConfig = {
+  Oopsie.init({
     serverUrl: 'https://oopsie.example.com',
     apiKey: 'your_project_api_key',
-  };
+  });
 </script>`;
 ---
 

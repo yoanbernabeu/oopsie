@@ -51,7 +51,7 @@ class ProjectController extends AbstractController
         );
 
         $cdn = sprintf(
-            "<script async src=\"https://cdn.oopsie.example.com/sdk/v1/oopsie.min.js\"></script>\n<script>\n  window.OopsieConfig = {\n    serverUrl: '%s',\n    apiKey: '%s',\n  };\n</script>",
+            "<script src=\"https://unpkg.com/oopsie-sdk\"></script>\n<script>\n  Oopsie.init({\n    serverUrl: '%s',\n    apiKey: '%s',\n  });\n</script>",
             '{{SERVER_URL}}',
             $project->getApiKey(),
         );
