@@ -8,19 +8,34 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
   <h2>Prerequisites</h2>
   <ul>
     <li><a href="https://docs.docker.com/get-docker/">Docker</a> and Docker Compose installed</li>
+    <li>A domain name pointing to your server (for production with HTTPS)</li>
   </ul>
 
-  <h2>1. Start with a single command</h2>
-  <pre><code>curl -fsSL https://raw.githubusercontent.com/yoanbernabeu/oopsie/main/compose.yml | docker compose -f - up -d</code></pre>
-  <p>This starts three services:</p>
+  <h2>Quick Start (local)</h2>
+  <pre><code>curl -fsSL https://raw.githubusercontent.com/yoanbernabeu/oopsie/main/compose.yml -o compose.yml
+curl -fsSL https://raw.githubusercontent.com/yoanbernabeu/oopsie/main/Caddyfile -o Caddyfile
+docker compose up -d</code></pre>
+  <p>This starts four services behind a <strong>Caddy reverse proxy</strong>:</p>
   <ul>
-    <li><strong>Server</strong> (API) — <code>http://localhost:8080</code></li>
-    <li><strong>Dashboard</strong> — <code>http://localhost:3000</code></li>
+    <li><strong>Caddy</strong> — reverse proxy with automatic HTTPS</li>
+    <li><strong>Server</strong> (API) — <code>http://api.localhost</code></li>
+    <li><strong>Dashboard</strong> — <code>http://app.localhost</code></li>
     <li><strong>PostgreSQL</strong> — internal database</li>
   </ul>
 
-  <h2>2. Complete the setup wizard</h2>
-  <p>Open <code>http://localhost:3000</code> in your browser. On first launch, you'll be guided through:</p>
+  <h2>Production deployment</h2>
+  <p>Create a <code>.env</code> file with your domain configuration:</p>
+  <pre><code>API_DOMAIN=https://api.oopsie.example.com
+DASHBOARD_DOMAIN=https://app.oopsie.example.com
+NEXT_PUBLIC_API_URL=https://api.oopsie.example.com/api/v1
+CORS_ALLOW_ORIGIN='^https://app\.oopsie\.example\.com$'
+APP_SECRET=your-random-secret
+POSTGRES_PASSWORD=your-db-password
+JWT_PASSPHRASE=your-jwt-passphrase</code></pre>
+  <p>Then run <code>docker compose up -d</code>. Caddy will automatically obtain and renew TLS certificates via Let's Encrypt.</p>
+
+  <h2>Complete the setup wizard</h2>
+  <p>Open the dashboard URL in your browser. On first launch, you'll be guided through:</p>
   <ol>
     <li>Creating your admin account</li>
     <li>Naming your instance</li>
@@ -28,10 +43,10 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
     <li>Getting the SDK integration snippet</li>
   </ol>
 
-  <h2>3. Add the SDK to your app</h2>
+  <h2>Add the SDK to your app</h2>
   <p>Copy the snippet from the setup wizard and add it to your application. See the <a href="/oopsie/docs/sdk/installation">SDK Installation</a> guide for details.</p>
 
-  <h2>4. Submit a test report</h2>
+  <h2>Submit a test report</h2>
   <p>Click the floating "Report a bug" button in your app, fill in the form, and verify it appears in the dashboard.</p>
 
   <h2>Next steps</h2>

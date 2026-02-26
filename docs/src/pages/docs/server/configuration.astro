@@ -40,11 +40,30 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
     </tbody>
   </table>
 
+  <h2>Reverse proxy (Caddy)</h2>
+  <p>Caddy handles HTTPS termination and subdomain routing. Configure via environment variables:</p>
+  <table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>API_DOMAIN</code></td><td><code>http://api.localhost</code></td><td>API subdomain. Use <code>https://api.example.com</code> for auto HTTPS</td></tr>
+      <tr><td><code>DASHBOARD_DOMAIN</code></td><td><code>http://app.localhost</code></td><td>Dashboard subdomain. Use <code>https://app.example.com</code> for auto HTTPS</td></tr>
+    </tbody>
+  </table>
+  <p>When using <code>https://</code> domains, Caddy automatically obtains and renews TLS certificates via Let's Encrypt.</p>
+
+  <h2>Dashboard</h2>
+  <table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>NEXT_PUBLIC_API_URL</code></td><td><code>http://api.localhost/api/v1</code></td><td>API URL used by the dashboard (injected at runtime)</td></tr>
+    </tbody>
+  </table>
+
   <h2>Other</h2>
   <table>
     <thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead>
     <tbody>
-      <tr><td><code>CORS_ALLOW_ORIGIN</code></td><td><code>*</code></td><td>CORS allowed origins (regex)</td></tr>
+      <tr><td><code>CORS_ALLOW_ORIGIN</code></td><td><code>*</code></td><td>CORS allowed origins (regex). Set to match your dashboard domain in production</td></tr>
       <tr><td><code>OOPSIE_VERSION</code></td><td><code>1.0.0</code></td><td>Current version (for update check)</td></tr>
     </tbody>
   </table>
