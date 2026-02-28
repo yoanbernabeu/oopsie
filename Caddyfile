@@ -1,0 +1,7 @@
+{$API_DOMAIN:http://api.localhost} {
+	reverse_proxy server:80
+}
+
+{$DASHBOARD_DOMAIN:http://app.localhost} {
+	reverse_proxy dashboard:3000
+}

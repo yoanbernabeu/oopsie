@@ -1,8 +1,23 @@
 services:
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      API_DOMAIN: ${API_DOMAIN:-http://api.localhost}
+      DASHBOARD_DOMAIN: ${DASHBOARD_DOMAIN:-http://app.localhost}
+    depends_on:
+      - server
+      - dashboard
+    restart: unless-stopped
+
   server:
     image: ghcr.io/yoanbernabeu/oopsie-server:latest
-    ports:
-      - "8080:80"
     environment:
       SERVER_NAME: :80
       DATABASE_URL: postgresql://oopsie:secret@postgres:5432/oopsie?serverVersion=17
@@ -22,10 +37,8 @@ services:
 
   dashboard:
     image: ghcr.io/yoanbernabeu/oopsie-dashboard:latest
-    ports:
-      - "3000:3000"
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:8080/api/v1
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://api.localhost/api/v1}
     depends_on:
       - server
     restart: unless-stopped
@@ -48,3 +61,5 @@ services:
 volumes:
   pgdata:
   attachments:
+  caddy_data:
+  caddy_config:

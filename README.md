@@ -22,10 +22,12 @@
 ## Quick Start
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yoanbernabeu/oopsie/main/compose.yml | docker compose -f - up -d
+curl -fsSL https://raw.githubusercontent.com/yoanbernabeu/oopsie/main/compose.yml -o compose.yml
+curl -fsSL https://raw.githubusercontent.com/yoanbernabeu/oopsie/main/Caddyfile -o Caddyfile
+docker compose up -d
 ```
 
-Then open http://localhost:3000 and follow the setup wizard.
+Then open http://app.localhost and follow the setup wizard.
 
 > Images are hosted on GitHub Container Registry: `ghcr.io/yoanbernabeu/oopsie-server` and `ghcr.io/yoanbernabeu/oopsie-dashboard`.
 
@@ -33,9 +35,22 @@ Then open http://localhost:3000 and follow the setup wizard.
 
 | Service | URL | Description |
 |---------|-----|-------------|
-| Dashboard | http://localhost:3000 | Admin dashboard |
-| API | http://localhost:8080 | REST API (OpenAPI docs at `/api/v1/docs`) |
-| PostgreSQL | localhost:5432 | Database (internal) |
+| Caddy | :80 / :443 | Reverse proxy with automatic HTTPS |
+| Dashboard | http://app.localhost | Admin dashboard |
+| API | http://api.localhost | REST API (OpenAPI docs at `/api/v1/docs`) |
+| PostgreSQL | internal | Database |
+
+### Production
+
+Create a `.env` file with your domains:
+
+```env
+API_DOMAIN=https://api.oopsie.example.com
+DASHBOARD_DOMAIN=https://app.oopsie.example.com
+NEXT_PUBLIC_API_URL=https://api.oopsie.example.com/api/v1
+```
+
+Caddy handles TLS certificates automatically via Let's Encrypt.
 
 ## SDK Usage
 
@@ -51,17 +66,17 @@ Oopsie.init({
 ## Development
 
 ```bash
-# Server
-cd server && composer install && symfony serve
+make install  # Install all dependencies
+make dev      # Start all dev services (Symfony CLI + Next.js + Astro)
+```
 
-# SDK
-cd sdk && npm install && npm run dev
+Or start services individually:
 
-# Dashboard
-cd dashboard && npm install && npm run dev
-
-# Docs
-cd docs && npm install && npm run dev
+```bash
+make dev-server     # Server only (needs `make db` first)
+make dev-dashboard  # Dashboard only (needs server running)
+make dev-docs       # Docs only
+make dev-sdk        # SDK in watch mode
 ```
 
 ## Documentation
