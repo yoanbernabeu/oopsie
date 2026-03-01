@@ -22,6 +22,7 @@ export interface LabelsConfig {
   severityLabel: string;
   emailPlaceholder: string;
   attachmentsLabel: string;
+  screenshotButton: string;
   successMessage: string;
   errorMessage: string;
 }
@@ -64,6 +65,7 @@ export const DEFAULT_LABELS: LabelsConfig = {
   severityLabel: 'Severity',
   emailPlaceholder: 'Your email (optional)',
   attachmentsLabel: 'Attachments',
+  screenshotButton: 'Screenshot',
   successMessage: 'Report sent successfully!',
   errorMessage: 'Failed to send report. It will be retried automatically.',
 };

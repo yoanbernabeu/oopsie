@@ -1,5 +1,7 @@
 import type { LabelsConfig, WidgetConfig } from '../core/config';
 import { getStyles } from './styles';
+import { isScreenCaptureSupported, captureScreen } from './screenshot/capture';
+import { AnnotationEditor } from './screenshot/annotation-editor';
 
 export interface FormData {
   message: string;
@@ -17,6 +19,7 @@ export class Form {
   private shadowRoot: ShadowRoot | null = null;
   private state: FormState = 'idle';
   private errorMessage = '';
+  private screenshotFile: File | null = null;
 
   constructor(
     private widgetConfig: WidgetConfig,
@@ -74,6 +77,35 @@ export class Form {
     this.attachEvents();
   }
 
+  private async handleScreenshot(): Promise<void> {
+    // Hide the form while capturing + annotating
+    if (this.overlay) this.overlay.style.display = 'none';
+
+    try {
+      const sourceCanvas = await captureScreen();
+      const editor = new AnnotationEditor(sourceCanvas);
+      const result = await editor.open();
+
+      if (this.overlay) this.overlay.style.display = '';
+
+      if (result) {
+        this.screenshotFile = result.file;
+        this.rerender();
+      }
+    } catch {
+      // User denied permission or capture failed
+      if (this.overlay) this.overlay.style.display = '';
+    }
+  }
+
+  private rerender(): void {
+    const shadow = this.existingShadowRoot ?? this.shadowRoot;
+    if (!shadow || !this.overlay) return;
+    this.overlay.remove();
+    this.overlay = null;
+    this.renderInShadow(shadow);
+  }
+
   private renderForm(): string {
     const errorHtml = this.state === 'error'
       ? `<div class="oopsie-error">${this.errorMessage || this.labels.errorMessage}</div>`
@@ -82,13 +114,18 @@ export class Form {
     return `
       <div class="oopsie-modal">
         <div class="oopsie-header">
-          <h2>${this.labels.title}</h2>
+          <div class="oopsie-header-left">
+            <div class="oopsie-header-icon">
+              <svg viewBox="0 0 24 24"><path d="M8 2a1 1 0 011 1v1.07A5.97 5.97 0 0112 4c1.08 0 2.09.29 2.96.78L15 3a1 1 0 112 0v2a1 1 0 01-1 1h-.17A5.98 5.98 0 0118 10v1h2a1 1 0 110 2h-2v1a5.98 5.98 0 01-2.17 4.58H16a1 1 0 011 1v2a1 1 0 11-2 0v-1.07A5.97 5.97 0 0112 21a5.97 5.97 0 01-3-.79V21a1 1 0 11-2 0v-2a1 1 0 011-1h.17A5.98 5.98 0 016 14v-1H4a1 1 0 110-2h2v-1a5.98 5.98 0 012.17-4.58H8a1 1 0 01-1-1V3a1 1 0 011-1zm4 4a4 4 0 00-4 4v4a4 4 0 008 0v-4a4 4 0 00-4-4z"/></svg>
+            </div>
+            <h2>${this.labels.title}</h2>
+          </div>
           <button class="oopsie-close" data-action="close">&times;</button>
         </div>
         <div class="oopsie-body">
           ${errorHtml}
           <div class="oopsie-field">
-            <label for="oopsie-message">${this.labels.title}</label>
+            <label for="oopsie-message">${this.labels.messagePlaceholder}</label>
             <textarea id="oopsie-message" placeholder="${this.labels.messagePlaceholder}" required></textarea>
           </div>
           <div class="oopsie-row">
@@ -115,9 +152,27 @@ export class Form {
             <label for="oopsie-email">Email</label>
             <input type="email" id="oopsie-email" placeholder="${this.labels.emailPlaceholder}" />
           </div>
+          ${isScreenCaptureSupported() ? `
+          <div class="oopsie-screenshot-row">
+            <button type="button" class="oopsie-screenshot-btn" data-action="screenshot">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M3 9h2M19 9h2M9 3v2M9 19v2"/></svg>
+              ${this.labels.screenshotButton}
+            </button>
+            ${this.screenshotFile ? `
+            <div class="oopsie-screenshot-preview">
+              <img src="${URL.createObjectURL(this.screenshotFile)}" alt="screenshot" />
+              <button class="oopsie-screenshot-remove" data-action="remove-screenshot">&times;</button>
+            </div>` : ''}
+          </div>` : ''}
           <div class="oopsie-field">
-            <label for="oopsie-files">${this.labels.attachmentsLabel}</label>
-            <input type="file" id="oopsie-files" multiple accept="image/*,.pdf,.txt" />
+            <label>${this.labels.attachmentsLabel}</label>
+            <div class="oopsie-file-wrapper">
+              <input type="file" id="oopsie-files" multiple accept="image/*,.pdf,.txt" />
+              <div class="oopsie-file-icon">
+                <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </div>
+              <div class="oopsie-file-text"><strong>Click to upload</strong> or drag & drop</div>
+            </div>
           </div>
           <div class="oopsie-consent">
             <input type="checkbox" id="oopsie-consent" />
@@ -136,7 +191,12 @@ export class Form {
     return `
       <div class="oopsie-modal">
         <div class="oopsie-success">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <div class="oopsie-success-icon">
+            <svg viewBox="0 0 24 24">
+              <circle class="check-circle" cx="12" cy="12" r="10"/>
+              <polyline class="check-mark" points="7 13 10 16 17 9"/>
+            </svg>
+          </div>
           <p>${this.labels.successMessage}</p>
         </div>
       </div>
@@ -146,7 +206,18 @@ export class Form {
   private attachEvents(): void {
     if (!this.overlay) return;
 
-    this.overlay.querySelector('[data-action="close"]')?.addEventListener('click', () => this.close());
+    this.overlay.querySelectorAll('[data-action="close"]').forEach((el) =>
+      el.addEventListener('click', () => this.close()),
+    );
+
+    this.overlay.querySelector('[data-action="screenshot"]')?.addEventListener('click', () => {
+      this.handleScreenshot();
+    });
+
+    this.overlay.querySelector('[data-action="remove-screenshot"]')?.addEventListener('click', () => {
+      this.screenshotFile = null;
+      this.rerender();
+    });
 
     this.overlay.querySelector('[data-action="submit"]')?.addEventListener('click', async () => {
       const shadow = this.existingShadowRoot ?? this.shadowRoot;
@@ -159,6 +230,9 @@ export class Form {
       const consent = (shadow.querySelector('#oopsie-consent') as HTMLInputElement)?.checked ?? false;
       const filesInput = shadow.querySelector('#oopsie-files') as HTMLInputElement;
       const attachments = filesInput?.files ? Array.from(filesInput.files) : [];
+      if (this.screenshotFile) {
+        attachments.push(this.screenshotFile);
+      }
 
       if (!message.trim()) return;
       if (!consent) return;
